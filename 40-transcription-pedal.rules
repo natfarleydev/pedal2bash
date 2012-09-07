@@ -1,0 +1,5 @@
+# Transcription Pedal (VEC Infinity)
+ACTION!="add|change", GOTO="transcription_pedal_end"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="05f3", ATTRS{idProduct}=="00ff", GROUP="tp"
+
+LABEL="transcription_pedal_end"
