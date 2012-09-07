@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 	// Open the device using the VID, PID,
 	// and optionally the Serial number.
 	////handle = hid_open(0x4d8, 0x3f, L"12345");
-	handle = hid_open(0x4d8, 0x3f, NULL);
+	handle = hid_open(0x5f3, 0xff, NULL);
 	if (!handle) {
 		printf("unable to open device\n");
  		return 1;
@@ -159,7 +159,7 @@ int main(int argc, char* argv[])
 	// non-blocking by the call to hid_set_nonblocking() above.
 	// This loop demonstrates the non-blocking nature of hid_read().
 	res = 0;
-	while (res == 0) {
+	while(res == 0) {
 		res = hid_read(handle, buf, sizeof(buf));
 		if (res == 0)
 			printf("waiting...\n");
@@ -172,11 +172,16 @@ int main(int argc, char* argv[])
 		#endif
 	}
 
+	hid_set_nonblocking(handle, 0);
 	printf("Data read:\n   ");
 	// Print out the returned buffer.
-	for (i = 0; i < res; i++)
-		printf("%02hhx ", buf[i]);
-	printf("\n");
+	// Also, reads the state of the transcription pedal. 
+	while(true) {		
+	  res = hid_read(handle, buf, sizeof(buf));
+	  for (i = 0; i < res; i++)
+	    printf("%02hhx ", buf[i]);
+	  printf("\n");
+	}
 
 	hid_close(handle);
 
