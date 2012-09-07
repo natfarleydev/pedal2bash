@@ -183,6 +183,12 @@ int main(int argc, char* argv[])
 	  printf("\n");
 	}
 
+	// Note to self, TODO integrate these two lines somehow
+	// win=$(xdotool search --class vlc | head -1)
+	// xdotool key --clearmodifiers --window $win space
+	//
+	// This will do the interations with X that I need.
+
 	hid_close(handle);
 
 	/* Free static HIDAPI objects. */
