@@ -178,14 +178,22 @@ int main(int argc, char* argv[])
 	// Also, reads the state of the transcription pedal. 
 	while(true) {		
 	  res = hid_read(handle, buf, sizeof(buf));
-	  for (i = 0; i < res; i++)
-	    printf("%02hhx ", buf[i]);
-	  printf("\n");
+	  //	  for (i = 0; i < res; i++) printf("%02hhx ", buf[i]);
+	  if(buf[0] == 00) system("~/.pedal2key/all_up.sh");
+	  if(buf[0] == 01) system("~/.pedal2key/left_down.sh");
+	  if(buf[0] == 02) system("~/.pedal2key/middle_down.sh");
+	  if(buf[0] == 03) system("~/.pedal2key/left_middle_down.sh");
+	  if(buf[0] == 04) system("~/.pedal2key/right_down.sh");
+	  if(buf[0] == 05) system("~/.pedal2key/left_right_down.sh");
+	  if(buf[0] == 06) system("~/.pedal2key/middle_right_down.sh");
+	  if(buf[0] == 07) system("~/.pedal2key/all_down.sh");
+	  //	  printf("\n");
 	}
 
 	// Note to self, TODO integrate these two lines somehow
 	// win=$(xdotool search --class vlc | head -1)
 	// xdotool key --clearmodifiers --window $win space
+	// Perhaps with scripts, one for each action?
 	//
 	// This will do the interations with X that I need.
 
